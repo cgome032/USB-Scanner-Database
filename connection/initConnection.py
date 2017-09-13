@@ -2,10 +2,13 @@ import pyodbc
 
 class DatabaseConnect:
 
+    """ Initial database function upon creation """
     def __init__(self,connection=None):
         self.connection = connection
 
-    def connectDatabase(connectionString):
+
+    """ Function to connect to Materials database """
+    def connectDatabase(self,connectionString):
         # Specifying the ODBC driver, server name, database, etc. directly
         connection = pyodbc.connect('DRIVER={SQL Server};SERVER=WESTSERV2.WESTCOINDUSTRIES.local;DATABASE=Material Inventory;UID=sa;PWD=EY9x35qK')
 
@@ -34,8 +37,16 @@ class DatabaseConnect:
         data = cursor.fetchall()
         print(data)
 
+    """ Function to delete material from inventory """
+    def takeMaterial(self, materialId):
+        cursor = connection.cursor()
+        cursor.execute("DELETE FROM materialAttributes WHERE Material_id=" + materialId)
+        data = cursor.fetchall()
+        print(data)
 
 
 if __name__ == '__main__':
-    connection = pyodbc.connect('DRIVER={SQL Server};SERVER=WESTSERV2.WESTCOINDUSTRIES.local;DATABASE=Material Inventory;UID=sa;PWD=EY9x35qK')
+    initConnectionString = 'DRIVER={SQL Server};SERVER=WESTSERV2.WESTCOINDUSTRIES.local;DATABASE=Material Inventory;UID=sa;PWD=EY9x35qK'
+    connection = pyodbc.connect(initConnectionString)
+    print("Connection completed")
 
