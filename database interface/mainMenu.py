@@ -1,14 +1,18 @@
 from tkinter import *
 from PIL import Image,ImageTk
 
-
-
+from connection.initConnection import DatabaseConnect
 
 
 class Main_Menu:
 
     def __init__(self,master):
         self.master = master
+
+        # User entry variables
+        self.userId = StringVar()
+        self.userPw = StringVar()
+
 
         # Main menu-menu bar
         self.mainMenuBar = Menu(self.master)
@@ -59,12 +63,13 @@ class Main_Menu:
         self.userHeight = 10
 
         self.userIdLabel = Label(self.loginFrame,width=self.userWidth,text='Employee Identification')
-        self.userIdEntry = Entry(self.loginFrame,width=self.userWidth)
+        self.userIdEntry = Entry(self.loginFrame,width=self.userWidth,textvariable=self.userId)
 
         self.userPwLabel = Label(self.loginFrame,width=self.userWidth,text='Employee Password')
-        self.userPwEntry = Entry(self.loginFrame,width=self.userWidth)
+        self.userPwEntry = Entry(self.loginFrame,width=self.userWidth,textvariable=self.userPw,show='*')
 
-        self.userAttempt = Button(self.loginFrame,width=self.userWidth,text="Login",relief=GROOVE)
+        self.userAttempt = Button(self.loginFrame,width=self.userWidth,text="Login",relief=GROOVE,command=lambda: self.employeeLogin(self.userId.get(),self.userPw.get()))
+        self.master.bind('<Return>',lambda x: self.employeeLogin(self.userId.get(),self.userPw.get()))
 
         self.userIdLabel.grid(row=0,column=0)
         self.userIdEntry.grid(row=0,column=1)
@@ -73,7 +78,13 @@ class Main_Menu:
         self.userAttempt.grid(row=2,column=1)
 
 
-    def employeeLogin(self):
+    def employeeLogin(self,userId,userPw):
+        self.newDatabase = DatabaseConnect()
+        self.newDatabase.connectDatabase()
+        print('User Credentials: ' + userId)
+        print('User Password: ' + userPw)
+        self.newDatabase.verifyCredentials(userId,userPw)
+
         print('success')
 
 
@@ -81,7 +92,7 @@ class Main_Menu:
 
 if __name__ == '__main__':
     root=Tk()
-    #root.resizable()
+    root.resizable(False,False)
     Main_Menu(root)
     root.mainloop()
 
