@@ -5,6 +5,7 @@ class DatabaseConnect:
     """ Initial database function upon creation """
     def __init__(self,connection=None):
         self.connection = connection
+        self.__loginId = None
 
 
     """ Function to connect to Materials database """
@@ -13,11 +14,13 @@ class DatabaseConnect:
         self.connection = pyodbc.connect('DRIVER={SQL Server};SERVER=WESTSERV2.WESTCOINDUSTRIES.local;DATABASE=Material_Inventory;UID=sa;PWD=EY9x35qK')
         print('You are connected')
 
+    """ Function to verify employee credentials against employee database """
     def verifyCredentials(self,user_id,user_pw):
         cursor = self.connection.cursor()
-        cursor.execute("""Select * From employeeDatabase WHERE Employee_username LIKE '%s'""" % (user_id))
+        cursor.execute("""Select Employee_id From employeeDatabase WHERE Employee_password='%s'""" % (user_pw))
         data = cursor.fetchall()
-        print(data)
+        __loginId = data[0]
+        print(__loginId)
         return True
 
     """ Function to grab all data from Materials database """
