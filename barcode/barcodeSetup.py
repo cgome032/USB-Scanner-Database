@@ -6,4 +6,6 @@ ean = barcode.get('code128', '13456789')
 filename = ean.save('code 128')
 
 
+
+
 print(ean)

@@ -1,27 +1,18 @@
 import pyodbc
 
-class DatabaseConnect:
+class MatDatabaseConnect:
 
     """ Initial database function upon creation """
-    def __init__(self,connection=None):
-        self.connection = connection
+    def __init__(self):
+        self.connectionString = 'DRIVER={SQL Server};SERVER=WESTSERV2.WESTCOINDUSTRIES.local;DATABASE=Material_Inventory;UID=sa;PWD=EY9x35qK'
         self.__loginId = None
 
 
     """ Function to connect to Materials database """
     def connectDatabase(self):
         # Specifying the ODBC driver, server name, database, etc. directly
-        self.connection = pyodbc.connect('DRIVER={SQL Server};SERVER=WESTSERV2.WESTCOINDUSTRIES.local;DATABASE=Material_Inventory;UID=sa;PWD=EY9x35qK')
+        self.connection = pyodbc.connect(self.connectionString)
         print('You are connected')
-
-    """ Function to verify employee credentials against employee database """
-    def verifyCredentials(self,user_id,user_pw):
-        cursor = self.connection.cursor()
-        cursor.execute("""Select Employee_id From employeeDatabase WHERE Employee_password='%s'""" % (user_pw))
-        data = cursor.fetchall()
-        __loginId = data[0]
-        print(__loginId)
-        return True
 
     """ Function to grab all data from Materials database """
     def getDatabase(self):

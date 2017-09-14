@@ -1,10 +1,10 @@
 from tkinter import *
 from PIL import Image, ImageTk
 
-from connection.initConnection import DatabaseConnect
+from connection.empInitConnection import EmpDatabaseConnect
 
 
-class Main_Menu:
+class MainMenu:
 
     def __init__(self,master):
         self.master = master
@@ -24,9 +24,6 @@ class Main_Menu:
 
         self.master.config(menu=self.mainMenuBar)
 
-
-
-
         self.master.title("WWW Inventory Management System")
         #master.configure(background='#3399FF')
 
@@ -40,8 +37,8 @@ class Main_Menu:
 
         self.__imgSrc = {
             'WMS': '../img/WMS Logo.JPG',
-            'Wadco': '../img/Wadco Logo.JPG',
             'Westco': '../img/WestcoLogo.JPG',
+            'Wadco': '../img/Wadco 3D 03.png',
             'Central': '../img/Central Metal Logo 600png.png'
         }
 
@@ -79,7 +76,7 @@ class Main_Menu:
 
 
     def employeeLogin(self,userId,userPw):
-        self.newDatabase = DatabaseConnect()
+        self.newDatabase = EmpDatabaseConnect()
         self.newDatabase.connectDatabase()
         print('User Credentials: ' + userId)
         print('User Password: ' + userPw)
@@ -93,6 +90,6 @@ class Main_Menu:
 if __name__ == '__main__':
     root=Tk()
     root.resizable(False,False)
-    Main_Menu(root)
+    MainMenu(root)
     root.mainloop()
 
