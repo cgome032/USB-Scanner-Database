@@ -21,10 +21,11 @@ class EmpDatabaseConnect:
         data = cursor.fetchone()
         if data == None:
             print("Employee not found")
+            return False
         else:
             __loginId = data[0]
-            print(__loginId)
-        return True
+            #print(__loginId)
+            return True
 
     """ Function to grab all data from Materials database """
     def getDatabase(self):

@@ -78,13 +78,16 @@ class MainMenu:
     def employeeLogin(self,userId,userPw):
         self.newDatabase = EmpDatabaseConnect()
         self.newDatabase.connectDatabase()
-        print('User Credentials: ' + userId)
-        print('User Password: ' + userPw)
-        self.newDatabase.verifyCredentials(userId,userPw)
+        #print('User Credentials: ' + userId)
+        #print('User Password: ' + userPw)
+        if (self.newDatabase.verifyCredentials(userId,userPw)):
+            print("successful login")
+        else:
+            print("User information not recognized")
 
-        print('success')
-
-
+class AddItemMenu:
+    def __init__(self,master):
+        self.master = master
 
 
 if __name__ == '__main__':
