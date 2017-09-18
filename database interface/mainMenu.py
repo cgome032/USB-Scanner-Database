@@ -13,7 +13,6 @@ class MainMenu:
         self.userId = StringVar()
         self.userPw = StringVar()
 
-
         # Main menu-menu bar
         self.mainMenuBar = Menu(self.master)
         self.fileMenu = Menu(self.mainMenuBar,tearoff=0)
@@ -75,6 +74,7 @@ class MainMenu:
         self.userAttempt.grid(row=2,column=1)
 
 
+    # Employee Login Function
     def employeeLogin(self,userId,userPw):
         self.newDatabase = EmpDatabaseConnect()
         self.newDatabase.connectDatabase()
@@ -88,6 +88,31 @@ class MainMenu:
 class AddItemMenu:
     def __init__(self,master):
         self.master = master
+
+        # image sources
+        self.__imgSrc = {
+            'WMS': '../img/WMS Logo.JPG',
+            'Westco': '../img/WestcoLogo.JPG',
+            'Wadco': '../img/Wadco 3D 03.png',
+            'Central': '../img/Central Metal Logo 600png.png'
+        }
+
+
+        self.__newWidth = 300  # New Width of company logos
+        self.__newLength = 150  # New Length of company logos
+        self.__xCounter = 0
+        self.__yCounter = 0
+        for img in self.__imgSrc.values():
+            self.newImg = ImageTk.PhotoImage(Image.open(img).resize((self.__newWidth, self.__newLength)))
+            self.newImageLabel = Label(self.logoFrame, image=self.newImg)
+            self.newImageLabel.image = self.newImg  # necessary to finish Image implementation
+            self.newImageLabel.grid(row=self.__yCounter, column=self.__xCounter)
+            self.__xCounter += 1
+            if self.__xCounter == 2:
+                self.__yCounter += 1
+                self.__xCounter = 0
+
+
 
 
 if __name__ == '__main__':

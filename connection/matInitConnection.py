@@ -5,6 +5,7 @@ class MatDatabaseConnect:
     """ Initial database function upon creation """
     def __init__(self):
         self.connectionString = 'DRIVER={SQL Server};SERVER=WESTSERV2.WESTCOINDUSTRIES.local;DATABASE=Material_Inventory;UID=sa;PWD=EY9x35qK'
+        #self.connectionString = 'DRIVER={SQL Server};SERVER=WESTSERV2.WESTCOINDUSTRIES.local;INSTANCE=SQLEXPRESS12;DATABASE=ProNest12;UID=cgomez;PWD=EY9x35qK'
         self.__loginId = None
 
 
@@ -46,7 +47,10 @@ class MatDatabaseConnect:
 
 
 if __name__ == '__main__':
-    initConnectionString = 'DRIVER={SQL Server};SERVER=WESTSERV2.WESTCOINDUSTRIES.local;DATABASE=Material_Inventory;UID=sa;PWD=EY9x35qK'
+    initConnectionString = MatDatabaseConnect().connectionString
     connection = pyodbc.connect(initConnectionString)
-    print("Connection completed")
+    if connection is not None:
+        print("Connection completed")
+    else:
+        print("Connection not completed")
 
