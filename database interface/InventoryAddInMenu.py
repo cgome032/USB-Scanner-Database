@@ -6,6 +6,9 @@ class AddItemMenu:
     def __init__(self, master):
         self.master = master
 
+        # User entry variables
+        self.upcId = StringVar()
+
         # image sources 
         self.__imgSrc = {
             'WMS': '../img/WMS Logo.JPG',
@@ -13,7 +16,7 @@ class AddItemMenu:
             'Wadco': '../img/Wadco 3D 03.png',
             'Central': '../img/Central Metal Logo 600png.png'
         }
-
+        # Main Frame for Inventory Menu
         self.AddMenu = Frame(self.master)
         self.AddMenu.pack(side='top')
 
@@ -27,6 +30,19 @@ class AddItemMenu:
             self.newImageLabel.image = self.newImg  # necessary to finish Image implementation
             self.newImageLabel.grid(row=self.__yCounter, column=self.__xCounter)
             self.__xCounter += 1
+
+        self.userWidth = 20
+        self.userHeight = 10
+
+        self.tagEntry = Entry(self.AddMenu, width=self.userWidth,textvariable=self.upcId)
+        self.attemptButton = Button(self.AddMenu, width=self.userWidth,text="Search",relief=GROOVE,command=lambda: self.getupcid(self.upcId.get()))
+
+        # Layout for Menu
+        self.tagEntry.grid(row=1,column=0)
+        self.attemptButton.grid(row=1,column=1)
+
+    def getupcid(self,upcId):
+        print('ID returned: ' + upcId)
 
 
 

@@ -4,8 +4,22 @@ class MatDatabaseConnect:
 
     """ Initial database function upon creation """
     def __init__(self):
-        self.connectionString = 'DRIVER={SQL Server};SERVER=WESTSERV2.WESTCOINDUSTRIES.local;DATABASE=Material_Inventory;UID=sa;PWD=EY9x35qK'
-        #self.connectionString = 'DRIVER={SQL Server};SERVER=WESTSERV2.WESTCOINDUSTRIES.local;INSTANCE=SQLEXPRESS12;DATABASE=ProNest12;UID=cgomez;PWD=EY9x35qK'
+        """
+        # Connection to Westserv2 server
+        self.sqlServer = 'SQL Server'
+        self.server = 'WESTSERV2.WESTCOINDUSTRIES.local'
+        self.database='Material_Inventory'
+        self.userId='sa'
+        self.password='EY9x35qK'
+        """
+
+        # Connection to Mike Manning server
+        self.sqlServer = 'SQL Server'
+        self.server = 'MMANNING64\MTCSOFTWARE'
+        self.database = 'ProNest10'
+
+        # self.connectionString = 'DRIVER={'+self.sqlServer+'};SERVER='+self.server+';DATABASE='+self.database+';UID='+self.userId+';PWD='+self.password
+        self.connectionString = 'DRIVER={' + self.sqlServer + '};SERVER=' + self.server + ';DATABASE=' + self.database + ';Trusted_Connection=True;'
         self.__loginId = None
 
 
