@@ -28,7 +28,7 @@ class AddItemMenu:
             self.newImageLabel.grid(row=self.__yCounter, column=self.__xCounter)
             self.__xCounter += 1
 
-        
+
 
 if __name__ == '__main__':
     root = Tk()
