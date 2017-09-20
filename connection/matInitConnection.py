@@ -4,24 +4,16 @@ class MatDatabaseConnect:
 
     """ Initial database function upon creation """
     def __init__(self):
-        """
-        # Connection to Westserv2 server
-        self.sqlServer = 'SQL Server'
-        self.server = 'WESTSERV2.WESTCOINDUSTRIES.local'
-        self.database='Material_Inventory'
-        self.userId='sa'
-        self.password='EY9x35qK'
-        """
+        self.connection = None
+        self.__loginId = None
 
         # Connection to Mike Manning server
         self.sqlServer = 'SQL Server'
-        self.server = 'MMANNING64\MTCSOFTWARE'
-        self.database = 'ProNest10'
-
-        # self.connectionString = 'DRIVER={'+self.sqlServer+'};SERVER='+self.server+';DATABASE='+self.database+';UID='+self.userId+';PWD='+self.password
-        self.connectionString = 'DRIVER={' + self.sqlServer + '};SERVER=' + self.server + ';DATABASE=' + self.database + ';Trusted_Connection=True;'
-        self.__loginId = None
-
+        self.server = 'WESTSERV2\SQLEXPRESS'
+        self.database = 'ProNest12'
+        self.userId='carlosg'
+        self.password='EY9x35qK'
+        self.connectionString = 'DRIVER={'+self.sqlServer+'};SERVER='+self.server+';DATABASE='+self.database+';UID='+self.userId+';PWD='+self.password
 
     """ Function to connect to Materials database """
     def connectDatabase(self):
@@ -32,15 +24,20 @@ class MatDatabaseConnect:
     """ Function to grab all data from Materials database """
     def getDatabase(self):
         cursor = self.connection.cursor()
-        cursor.execute("SELECT * FROM materialAttributes ORDER BY Material_id")
+        cursor.execute("SELECT * FROM PlateInv ORDER BY PlateID")
         data = cursor.fetchall()
-        print(data)
+        for material in data:
+            print(material)
 
 
     """ Function to grab specific item from Materials database """
     def getMaterialItem(self,materialId):
         cursor = self.connection.cursor()
-        cursor.execute("SELECT * FROM materialAttributes WHERE Material_id=" + materialId)
+        cursor.execute("SELECT * FROM PlateInv WHERE PlateID=" + str(materialId))
+        columns = cursor.description
+        for column in columns:
+            print(column[0],end=', ')
+        print()
         data = cursor.fetchall()
         print(data)
 
@@ -61,10 +58,11 @@ class MatDatabaseConnect:
 
 
 if __name__ == '__main__':
-    initConnectionString = MatDatabaseConnect().connectionString
-    connection = pyodbc.connect(initConnectionString)
-    if connection is not None:
+    newDatabase = MatDatabaseConnect()
+    newDatabase.connectDatabase()
+    if newDatabase.connection is not None:
         print("Connection completed")
+        newDatabase.getMaterialItem(20)
     else:
         print("Connection not completed")
 
