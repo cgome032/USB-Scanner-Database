@@ -33,8 +33,8 @@ class App(Frame):
         self.grid_columnconfigure(0, weight = 1)
 
     def LoadTable(self):
-        self.treeview.insert('', 'end', text="First", values=('10:00', '10:10', 'Ok'))
-        self.treeview.insert('','end', text="Second", values=('10:00', '10:10', 'Ok'))
+        self.treeview.insert('', 'end', 'widgets',text="First", values=('10:00', '10:10', 'Ok'))
+        self.treeview.insert('widgets','end', text="Second", values=('10:00', '10:10', 'Ok'))
 
 if __name__ == '__main__':
     root = Tk()

@@ -1,4 +1,6 @@
 import pyodbc
+from Material import material
+import csv
 
 class MatDatabaseConnect:
 
@@ -30,17 +32,22 @@ class MatDatabaseConnect:
             print(material)
 
 
-    """ Function to grab specific item from Materials database """
+    """ 
+        Function to grab specific item from Materials database
+        returns material item from database in the form of a dictionary 
+    """
     def getMaterialItem(self,materialId):
+
         cursor = self.connection.cursor()
         cursor.execute("SELECT * FROM PlateInv WHERE PlateID=" + str(materialId))
         columns = cursor.description
+        detail = []
         for column in columns:
-            print(column[0],end=', ')
-        print()
-        data = cursor.fetchall()
-        print(data)
-
+            detail.append(column[0])
+        data = list(cursor.fetchone())
+        matDict = dict(zip(detail,data))
+        chosenMaterial = material(matDict)
+        print(chosenMaterial.StockNumber)
 
     """ Function to grab all materials of a specific type """
     def getAllMaterials(self, materialType):
@@ -62,7 +69,7 @@ if __name__ == '__main__':
     newDatabase.connectDatabase()
     if newDatabase.connection is not None:
         print("Connection completed")
-        newDatabase.getMaterialItem(20)
+        newDatabase.getMaterialItem(input("Enter id: "))
     else:
         print("Connection not completed")
 
