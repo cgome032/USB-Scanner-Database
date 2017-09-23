@@ -1,6 +1,9 @@
 import pyodbc
 from Material import material
 import csv
+from execsql import execsql
+
+
 
 class MatDatabaseConnect:
 
@@ -47,7 +50,7 @@ class MatDatabaseConnect:
         data = list(cursor.fetchone())
         matDict = dict(zip(detail,data))
         chosenMaterial = material(matDict)
-        print(chosenMaterial.StockNumber)
+        print(chosenMaterial.Description)
 
     """ Function to grab all materials of a specific type """
     def getAllMaterials(self, materialType):

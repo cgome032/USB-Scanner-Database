@@ -1,6 +1,7 @@
 from tkinter import *
 from PIL import Image, ImageTk
-
+from connection import matInitConnection
+from Material import material
 
 class AddItemMenu:
     def __init__(self, master):
