@@ -1,8 +1,6 @@
 import pyodbc
 from Material import material
 import csv
-from execsql import execsql
-
 
 
 class MatDatabaseConnect:
