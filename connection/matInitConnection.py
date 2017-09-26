@@ -2,7 +2,6 @@ import pyodbc
 from Material import material
 import csv
 
-
 class MatDatabaseConnect:
 
     """ Initial database function upon creation """
@@ -22,7 +21,7 @@ class MatDatabaseConnect:
     def connectDatabase(self):
         # Specifying the ODBC driver, server name, database, etc. directly
         self.connection = pyodbc.connect(self.connectionString)
-        print('You are connected')
+        print('Connection Completed!')
 
     """ Function to grab all data from Materials database """
     def getDatabase(self):
@@ -48,7 +47,7 @@ class MatDatabaseConnect:
         data = list(cursor.fetchone())
         matDict = dict(zip(detail,data))
         chosenMaterial = material(matDict)
-        print(chosenMaterial.Description)
+        return chosenMaterial
 
     """ Function to grab all materials of a specific type """
     def getAllMaterials(self, materialType):

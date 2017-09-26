@@ -42,5 +42,5 @@ class material:
         self.ERPPlateNumber = dictionary['ERPPlateNumber']
         self.RootID = dictionary['RootID']
 
-    def print_dictionary(self):
-        print(self)
+    def __str__(self):
+        return str('Your material is: ' + self.Description)

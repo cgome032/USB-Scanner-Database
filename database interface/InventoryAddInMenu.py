@@ -1,6 +1,8 @@
 from tkinter import *
 from PIL import Image, ImageTk
+from MaterialBarcode.barcodeSetup import MatBarcode
 from connection import matInitConnection
+
 from Material import material
 
 class AddItemMenu:
@@ -37,6 +39,8 @@ class AddItemMenu:
 
         self.tagEntry = Entry(self.AddMenu, width=self.userWidth,textvariable=self.upcId)
         self.attemptButton = Button(self.AddMenu, width=self.userWidth,text="Search",relief=GROOVE,command=lambda: self.getupcid(self.upcId.get()))
+        self.master.bind('<Return>', lambda x: self.getupcid(self.upcId.get()))
+
 
         # Layout for Menu
         self.tagEntry.grid(row=1,column=0)
@@ -44,6 +48,10 @@ class AddItemMenu:
 
     def getupcid(self,upcId):
         print('ID returned: ' + upcId)
+        search_mat = matInitConnection.MatDatabaseConnect()
+        search_mat.connectDatabase()
+        ret_material = search_mat.getMaterialItem(upcId)
+        mat_barcode = MatBarcode(ret_material.PlateID)
 
 
 
