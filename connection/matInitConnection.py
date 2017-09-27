@@ -44,10 +44,13 @@ class MatDatabaseConnect:
         detail = []
         for column in columns:
             detail.append(column[0])
-        data = list(cursor.fetchone())
-        matDict = dict(zip(detail,data))
-        chosenMaterial = material(matDict)
-        return chosenMaterial
+        try:
+            data = list(cursor.fetchone())
+            matDict = dict(zip(detail,data))
+            chosenMaterial = material(matDict)
+            return chosenMaterial
+        except:
+            print("Material Not found")
 
     """ Function to grab all materials of a specific type """
     def getAllMaterials(self, materialType):
