@@ -58,6 +58,7 @@ class AddItemMenu:
             self.popup_showerror()
             print("UPC not found")
 
+    """ Function that shows error for not finding Material """
     def popup_showerror(self):
         showinfo("Error", "Material ID not found")
 

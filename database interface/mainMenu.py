@@ -1,6 +1,6 @@
 from tkinter import *
 from PIL import Image, ImageTk
-
+from tkinter.messagebox import showinfo
 from connection.empInitConnection import EmpDatabaseConnect
 
 
@@ -76,14 +76,19 @@ class MainMenu:
 
     # Employee Login Function.
     def employee_login(self, userId, userPw):
-        self.newDatabase = EmpDatabaseConnect()
-        self.newDatabase.connectDatabase()
-        # print('User Credentials: ' + userId)
-        # print('User Password: ' + userPw)
-        if self.newDatabase.verifyCredentials(userId,userPw):
+        try:
+            self.newDatabase = EmpDatabaseConnect()
+            self.newDatabase.connectDatabase()
+            self.newDatabase.verifyCredentials(userId,userPw)
             print("successful login")
-        else:
+        except:
             print("User information not recognized")
+            self.popup_showerror()
+
+    """ Function that shows error for not finding Material """
+    def popup_showerror(self):
+        showinfo("Error", "Employee credentials not recognized")
+
 
 if __name__=='__main__':
     root=Tk()
