@@ -13,6 +13,10 @@ class AddItemMenu:
 
         # User entry variables
         self.upcId = StringVar()
+        self.thickness = StringVar()
+        self.width = StringVar()
+        self.length = StringVar()
+        self.newMaterial = None
 
         # image sources 
         self.__imgSrc = {
@@ -39,13 +43,27 @@ class AddItemMenu:
         self.userWidth = 20
         self.userHeight = 10
 
+        # Item definitions
+        # User input functions
+
         self.tagEntry = Entry(self.AddMenu, width=self.userWidth,textvariable=self.upcId)
         self.attemptButton = Button(self.AddMenu, width=self.userWidth,text="Search",relief=GROOVE,command=lambda: self.getupcid(self.upcId.get()))
+        self.thicknessEntry = Entry(self.AddMenu,width=self.userWidth,state="disabled",textvariable=self.thickness,disabledbackground="#FFF")
+        self.widthEntry = Entry(self.AddMenu,width=self.userWidth,state="disabled",textvariable=self.width,disabledbackground="#FFF")
+        self.lengthEntry = Entry(self.AddMenu,width=self.userWidth,state="disabled",textvariable=self.length,disabledbackground="#FFF")
+
+        # Function to bind "return" on menu input
         self.master.bind('<Return>', lambda x: self.getupcid(self.upcId.get()))
 
         # Layout for Menu
+        # Defining positioning for all items on menu
+
         self.tagEntry.grid(row=1,column=0)
         self.attemptButton.grid(row=1,column=1)
+
+        self.thicknessEntry.grid(row=2,column=0)
+        self.widthEntry.grid(row=2,column=1)
+        self.lengthEntry.grid(row=2,column=2)
 
     def getupcid(self,upcId):
         print('ID returned: ' + upcId)
@@ -54,9 +72,20 @@ class AddItemMenu:
             search_mat.connectDatabase()
             ret_material = search_mat.getMaterialItem(upcId)
             mat_barcode = MatBarcode(ret_material.PlateID)
+            self.update_labels(ret_material)
         except:
             self.popup_showerror()
             print("UPC not found")
+
+
+    def update_labels(self,materialCode):
+        try:
+            # self.thickness.set(materialCode[''])
+            self.width.set(materialCode.PlateWidth)
+            self.length.set(materialCode.PlateLength)
+        except:
+            print("Unable to update labels")
+
 
     """ Function that shows error for not finding Material """
     def popup_showerror(self):
