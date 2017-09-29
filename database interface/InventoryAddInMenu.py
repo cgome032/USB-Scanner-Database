@@ -47,13 +47,13 @@ class AddItemMenu:
         # User input functions
 
         self.tagEntry = Entry(self.AddMenu, width=self.userWidth,textvariable=self.upcId)
-        self.attemptButton = Button(self.AddMenu, width=self.userWidth,text="Search",relief=GROOVE,command=lambda: self.getupcid(self.upcId.get()))
+        self.attemptButton = Button(self.AddMenu, width=self.userWidth, text="Search", relief=GROOVE, command=lambda: self.get_upc_id(self.upcId.get()))
         self.thicknessEntry = Entry(self.AddMenu,width=self.userWidth,state="disabled",textvariable=self.thickness,disabledbackground="#FFF")
         self.widthEntry = Entry(self.AddMenu,width=self.userWidth,state="disabled",textvariable=self.width,disabledbackground="#FFF")
         self.lengthEntry = Entry(self.AddMenu,width=self.userWidth,state="disabled",textvariable=self.length,disabledbackground="#FFF")
 
         # Function to bind "return" on menu input
-        self.master.bind('<Return>', lambda x: self.getupcid(self.upcId.get()))
+        self.master.bind('<Return>', lambda x: self.get_upc_id(self.upcId.get()))
 
         # Layout for Menu
         # Defining positioning for all items on menu
@@ -65,7 +65,7 @@ class AddItemMenu:
         self.widthEntry.grid(row=2,column=1)
         self.lengthEntry.grid(row=2,column=2)
 
-    def getupcid(self,upcId):
+    def get_upc_id(self, upcId):
         print('ID returned: ' + upcId)
         try:
             search_mat = matInitConnection.MatDatabaseConnect()
