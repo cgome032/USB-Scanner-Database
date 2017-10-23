@@ -5,6 +5,7 @@ This system will be used to replace the current inventory system for Western Met
 
 ## User interface tasks that need to be completed
 1. ~~User Login Screen~~
+
 ![alt text][logo]
 
 [logo]:images/main_menu_screen.png "Employee login"
